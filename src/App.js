@@ -11,6 +11,7 @@ import { AppConfig } from './AppConfig';
 import Dashboard from './components/Dashboard';
 import FormLayoutEmpresa from './components/FormLayoutEmpresa';
 import FormLayoutFactura from './components/FormLayoutFactura';
+import FacturaList from './pages/FacturaList';
 
 import Crud from './pages/Crud';
 import CrudCiudad from './pages/CrudCuidad'
@@ -26,6 +27,7 @@ import './assets/demo/flags/flags.css';
 import './assets/demo/Demos.scss';
 import './assets/layout/layout.scss';
 import './App.scss';
+
 
 const App = () => {
     const [layoutMode, setLayoutMode] = useState('static');
@@ -214,6 +216,7 @@ const App = () => {
                     <Route path="/crud-ciudad" component={CrudCiudad} />
                     <Route path="/crud-empresa" component={FormLayoutEmpresa} />
                     <Route path="/crud-factura" component={FormLayoutFactura} />
+                    <Route path="/lista-factura" component={FacturaList} />
                 </div>
 
                 <AppFooter layoutColorMode={layoutColorMode} />
