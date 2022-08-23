@@ -9,4 +9,8 @@ export class EmpresaService {
     postEmpresas(emp) {
         return axios.post('http://localhost:9090/api/v1.0/empresa', emp)
     }
+
+    putEmpresas(empres) {
+        return axios.put('http://localhost:9090/api/v1.0/empresa', empres)
+    }
 }
