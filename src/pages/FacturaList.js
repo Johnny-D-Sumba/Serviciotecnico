@@ -14,9 +14,10 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { ProductService } from "../service/ProductService";
 import { ProvinciaService } from "../service/ProvinciaService"
+import { FacturaService } from "../service/FacturaService"
 
 const Crud = () => {
-    let emptyProvincia = {
+    let emptyFactura = {
         id: null,
         nombre: "",
     };
@@ -25,16 +26,17 @@ const Crud = () => {
     const [facturaDialog, setFacturaDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
-    const [factura, setProvincia] = useState(emptyProvincia);
-    const [selectedProvincias, setSelectedProvincias] = useState(null);
+    const [factura, setFactura] = useState(emptyFactura);
+    const [selectedFacturas, setSelectedFacturas] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
     const dt = useRef(null);
 
     useEffect(() => {
-        const provinciaService = new ProvinciaService();
-        provinciaService.getProvincias().then((data) => setFacturas(data));
+        const facturaService = new FacturaService();
+        //facturaService.getProvincias().then((data) => setFacturas(data));
+        facturaService.getFacturas().then((data) => setFacturas(data));
     }, []);
 
     const formatCurrency = (value) => {
@@ -45,7 +47,7 @@ const Crud = () => {
     };
 
     const openNew = () => {
-        setProvincia(emptyProvincia);
+        setFactura(emptyFactura);
         setSubmitted(false);
         setFacturaDialog(true);
     };
@@ -98,17 +100,17 @@ const Crud = () => {
 
             setFacturas(_products);
             setFacturaDialog(false);
-            setProvincia(emptyProvincia);
+            setFactura(emptyFactura);
         }
     };
 
     const editProduct = (product) => {
-        setProvincia({ ...product });
+        setFactura({ ...product });
         setFacturaDialog(true);
     };
 
     const confirmDeleteProduct = (product) => {
-        setProvincia(product);
+        setFactura(product);
         setDeleteProductDialog(true);
     };
 
@@ -116,7 +118,7 @@ const Crud = () => {
         let _products = facturas.filter((val) => val.id !== factura.id);
         setFacturas(_products);
         setDeleteProductDialog(false);
-        setProvincia(emptyProvincia);
+        setFactura(emptyFactura);
         const provserv = new ProvinciaService();
         provserv.deleteProvincias(factura.id);
         toast.current.show({
@@ -157,10 +159,10 @@ const Crud = () => {
     };
 
     const deleteSelectedProducts = () => {
-        let _products = facturas.filter((val) => !selectedProvincias.includes(val));
+        let _products = facturas.filter((val) => !selectedFacturas.includes(val));
         setFacturas(_products);
         setDeleteProductsDialog(false);
-        setSelectedProvincias(null);
+        setSelectedFacturas(null);
         toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -172,7 +174,7 @@ const Crud = () => {
     const onCategoryChange = (e) => {
         let _product = { ...factura };
         _product["category"] = e.value;
-        setProvincia(_product);
+        setFactura(_product);
     };
 
     const onInputChange = (e, name) => {
@@ -180,7 +182,7 @@ const Crud = () => {
         let _product = { ...factura };
         _product[`${name}`] = val;
 
-        setProvincia(_product);
+        setFactura(_product);
     };
 
     const onInputNumberChange = (e, nombre) => {
@@ -188,7 +190,7 @@ const Crud = () => {
         let _product = { ...factura };
         _product[`${nombre}`] = val;
 
-        setProvincia(_product);
+        setFactura(_product);
     };
 
 
@@ -311,8 +313,8 @@ const Crud = () => {
                     <DataTable
                         ref={dt}
                         value={facturas}
-                        selection={selectedProvincias}
-                        onSelectionChange={(e) => setSelectedProvincias(e.value)}
+                        selection={selectedFacturas}
+                        onSelectionChange={(e) => setSelectedFacturas(e.value)}
                         dataKey="id"
                         paginator
                         rows={10}
@@ -333,7 +335,7 @@ const Crud = () => {
                         <Column body={actionBodyTemplate}></Column>
                     </DataTable>
 
-                    <Dialog visible={facturaDialog} style={{ width: "450px" }} header="Provincia" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                    <Dialog visible={facturaDialog} style={{ width: "450px" }} header="Factura" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                         <div className="field">
                             <label htmlFor="name">Nombre</label>
                             <InputText
