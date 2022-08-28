@@ -3,14 +3,42 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
+import { EmpresaService } from "../service/EmpresaService";
 
 const FormLayoutEmpresa = () => {
+    let emptyEmpresa = {
+        id: null,
+        ruc: "",
+        nombre: "",
+        direccion: "",
+        ciudad: "",
+        telefono: "",
+        email:"",
+        porcentajeIVA: ""
+    };
+
+    const [ciudades, setEmpresas] = useState(null);
+    const [ciudad, setProduct] = useState(emptyEmpresa);
     const [dropdownItem, setDropdownItem] = useState(null);
     const dropdownItems = [
         { name: 'Option 1', code: 'Option 1' },
         { name: 'Option 2', code: 'Option 2' },
         { name: 'Option 3', code: 'Option 3' }
     ];
+
+    /*useEffect(() => {
+        const empresaService = new EmpresaService();
+        empresaService.getEmpresas().then((data) => setEmpresas(data));
+    }, []);*/
+
+    const nameBodyTemplate = (rowData) => {
+        return (
+            <>
+                <span className="p-column-title">Name</span>
+                {rowData.nombre}
+            </>
+        );
+    };
 
     return (
         <div className="grid">
@@ -20,7 +48,7 @@ const FormLayoutEmpresa = () => {
                     <h5>Empresa</h5>
                     <div className="p-fluid formgrid grid">
                         <div className="field col-12 md:col-6">
-                            <label htmlFor="nomepmre">Nombre</label>
+                            <label htmlFor="nomepmre" body={nameBodyTemplate}>Nombre</label>
                             <InputText id="nomempre" type="text" />
                         </div>
                         <div className="field col-12 md:col-6">

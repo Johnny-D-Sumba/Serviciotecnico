@@ -16,27 +16,151 @@ import { ProductService } from "../service/ProductService";
 import { ProvinciaService } from "../service/ProvinciaService"
 import { FacturaService } from "../service/FacturaService"
 
-const Crud = () => {
+const FacturaList = () => {
     let emptyFactura = {
         id: null,
-        nombre: "",
+        numero: "",
+        numeroEstablecimiento: "",
+        numeroPuntoEmision: "",
+        numeroSecuencial: "",
+        codigoAcceso: "",
+        empresa: {
+            id: 1,
+            ruc: "",
+            nombre: "",
+            direccion: "",
+            ciudad: {
+                id: 2,
+                nombre: "",
+                provincia: {
+                    id: 2,
+                    nombre: ""
+                }
+            },
+            telefono: "",
+            email: "",
+            porcentajeIVA: ""
+        },
+        cliente: {
+            id: 1,
+            nombres: "",
+            apellidos: "",
+            dni: "",
+            direccion: "",
+            telefono: "",
+            celular:"",
+            email: "",
+            estado: ""
+        },
+        fechaEmision: "",
+        guiaRemision: "",
+        subtotalIVA: "",
+        subtotalSinIVA: "",
+        descuento: "",
+        valorIVA: "",
+        total: "",
+        ordenServicio: {
+            id: 1,
+            numero_orden: "",
+            empresa: {
+                id: 1,
+                ruc: "",
+                nombre: "",
+                direccion: "",
+                ciudad: {
+                    id: 2,
+                    nombre: "",
+                    provincia: {
+                        id: 2,
+                        nombre: ""
+                    }
+                },
+                telefono: "",
+                email: "",
+                porcentajeIVA: ""
+            },
+            cliente: {
+                id: 1,
+                nombres: "",
+                apellidos: "",
+                dni: "",
+                direccion: "",
+                telefono: "",
+                celular:"",
+                email: "",
+                estado: ""
+            },
+            fecha_emision: "",
+            estado_orden_servicio: {
+                id: 1,
+                state: "",
+                empresa: {
+                    id: 1,
+                    ruc: "",
+                    nombre: "",
+                    direccion: "",
+                    ciudad: {
+                        id: 2,
+                        nombre: "",
+                        provincia: {
+                            id: 2,
+                            nombre: ""
+                        }
+                    },
+                    telefono: "",
+                    email: "",
+                    porcentajeIVA: ""
+                },
+            },
+            sub_total_con_IVA: "",
+            sub_total_sin_IVA: "",
+            tecnico: {
+                id: 1,
+                cedula: "",
+                nombre: "",
+                apellido: "",
+                email: "",
+                telefono: "",
+                direccion: "",
+                empresa: {
+                    id: 1,
+                    ruc: "",
+                    nombre: "",
+                    direccion: "",
+                    ciudad: {
+                        id: 2,
+                        nombre: "",
+                        provincia: {
+                            id: 2,
+                            nombre: ""
+                        }
+                    },
+                    telefono: "",
+                    email: "",
+                    porcentajeIVA: ""
+                }
+            },
+            descuento: "",
+            valor_IVA: "",
+            total: "",
+            observaciones: ""
+        }
     };
 
     const [facturas, setFacturas] = useState(null);
-    const [facturaDialog, setFacturaDialog] = useState(false);
+    const [provinciaDialog, setProvinciaDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
-    const [factura, setFactura] = useState(emptyFactura);
-    const [selectedFacturas, setSelectedFacturas] = useState(null);
+    const [provincia, setProvincia] = useState(emptyFactura);
+    const [selectedProvincias, setSelectedProvincias] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
     const dt = useRef(null);
 
     useEffect(() => {
-        const facturaService = new FacturaService();
-        //facturaService.getProvincias().then((data) => setFacturas(data));
-        facturaService.getFacturas().then((data) => setFacturas(data));
+        const provinciaService = new ProvinciaService();
+        provinciaService.getProvincias().then((data) => setFacturas(data));
     }, []);
 
     const formatCurrency = (value) => {
@@ -47,14 +171,14 @@ const Crud = () => {
     };
 
     const openNew = () => {
-        setFactura(emptyFactura);
+        setProvincia(emptyFactura);
         setSubmitted(false);
-        setFacturaDialog(true);
+        setProvinciaDialog(true);
     };
 
     const hideDialog = () => {
         setSubmitted(false);
-        setFacturaDialog(false);
+        setProvinciaDialog(false);
     };
 
     const hideDeleteProductDialog = () => {
@@ -68,11 +192,11 @@ const Crud = () => {
     const saveProduct = () => {
         setSubmitted(true);
 
-        if (factura.nombre.trim()) {
+        if (provincia.nombre.trim()) {
             let _products = [...facturas];
-            let _product = { ...factura };
-            if (factura.id) {
-                const index = findIndexById(factura.id);
+            let _product = { ...provincia };
+            if (provincia.id) {
+                const index = findIndexById(provincia.id);
 
                 _products[index] = _product;
 
@@ -99,28 +223,28 @@ const Crud = () => {
             }
 
             setFacturas(_products);
-            setFacturaDialog(false);
-            setFactura(emptyFactura);
+            setProvinciaDialog(false);
+            setProvincia(emptyFactura);
         }
     };
 
     const editProduct = (product) => {
-        setFactura({ ...product });
-        setFacturaDialog(true);
+        setProvincia({ ...product });
+        setProvinciaDialog(true);
     };
 
     const confirmDeleteProduct = (product) => {
-        setFactura(product);
+        setProvincia(product);
         setDeleteProductDialog(true);
     };
 
     const deleteProduct = () => {
-        let _products = facturas.filter((val) => val.id !== factura.id);
+        let _products = facturas.filter((val) => val.id !== provincia.id);
         setFacturas(_products);
         setDeleteProductDialog(false);
-        setFactura(emptyFactura);
+        setProvincia(emptyFactura);
         const provserv = new ProvinciaService();
-        provserv.deleteProvincias(factura.id);
+        provserv.deleteProvincias(provincia.id);
         toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -159,10 +283,10 @@ const Crud = () => {
     };
 
     const deleteSelectedProducts = () => {
-        let _products = facturas.filter((val) => !selectedFacturas.includes(val));
+        let _products = facturas.filter((val) => !selectedProvincias.includes(val));
         setFacturas(_products);
         setDeleteProductsDialog(false);
-        setSelectedFacturas(null);
+        setSelectedProvincias(null);
         toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -172,27 +296,26 @@ const Crud = () => {
     };
 
     const onCategoryChange = (e) => {
-        let _product = { ...factura };
+        let _product = { ...provincia };
         _product["category"] = e.value;
-        setFactura(_product);
+        setProvincia(_product);
     };
 
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || "";
-        let _product = { ...factura };
+        let _product = { ...provincia };
         _product[`${name}`] = val;
 
-        setFactura(_product);
+        setProvincia(_product);
     };
 
     const onInputNumberChange = (e, nombre) => {
         const val = e.value || 0;
-        let _product = { ...factura };
+        let _product = { ...provincia };
         _product[`${nombre}`] = val;
 
-        setFactura(_product);
+        setProvincia(_product);
     };
-
 
     const rightToolbarTemplate = () => {
         return (
@@ -269,8 +392,7 @@ const Crud = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <div className="actions">
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editProduct(rowData)} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mt-2" onClick={() => confirmDeleteProduct(rowData)} />
+                <Button icon="pi pi-search" className="p-button-rounded p-button-success mr-2 " onClick={() => editProduct(rowData)} />
             </div>
         );
     };
@@ -313,8 +435,8 @@ const Crud = () => {
                     <DataTable
                         ref={dt}
                         value={facturas}
-                        selection={selectedFacturas}
-                        onSelectionChange={(e) => setSelectedFacturas(e.value)}
+                        selection={selectedProvincias}
+                        onSelectionChange={(e) => setSelectedProvincias(e.value)}
                         dataKey="id"
                         paginator
                         rows={10}
@@ -322,42 +444,41 @@ const Crud = () => {
                         className="datatable-responsive"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
                         globalFilter={globalFilter}
-                        emptyMessage="No existen facturas generadas."
+                        emptyMessage="No existen provincias registradas."
                         header={header}
                         responsiveLayout="scroll"
                     >
                         <Column selectionMode="multiple" headerStyle={{ width: "3rem" }}></Column>
-                        <Column field="code" header="Nº factura" body={codeBodyTemplate} headerStyle={{ width: "14%", minWidth: "10rem" }}></Column>
+                        <Column field="code" header="Nº Factura" body={codeBodyTemplate} headerStyle={{ width: "14%", minWidth: "10rem" }}></Column>
                         <Column field="name" header="Cliente" body={nameBodyTemplate} headerStyle={{ width: "17%", minWidth: "10rem" }}></Column>
                         <Column field="date" header="Fecha de emisión" body={nameBodyTemplate} headerStyle={{ width: "18%", minWidth: "10rem" }}></Column>
                         <Column field="service" header="Nº Orden de servicio" body={nameBodyTemplate} headerStyle={{ width: "18%", minWidth: "10rem" }}></Column>
-
                         <Column body={actionBodyTemplate}></Column>
                     </DataTable>
 
-                    <Dialog visible={facturaDialog} style={{ width: "450px" }} header="Factura" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                    <Dialog visible={provinciaDialog} style={{ width: "450px" }} header="Provincia" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                         <div className="field">
                             <label htmlFor="name">Nombre</label>
                             <InputText
                                 id="nombre"
-                                value={factura.nombre}
+                                value={provincia.nombre}
                                 onChange={(e) => onInputChange(e, "nombre")}
                                 required
                                 autoFocus
                                 className={classNames({
-                                    "p-invalid": submitted && !factura.nombre,
+                                    "p-invalid": submitted && !provincia.nombre,
                                 })}
                             />
-                            {submitted && !factura.nombre && <small className="p-invalid">El nombre de la provincia es necesario.</small>}
+                            {submitted && !provincia.nombre && <small className="p-invalid">El nombre de la provincia es necesario.</small>}
                         </div>
                     </Dialog>
 
                     <Dialog visible={deleteProductDialog} style={{ width: "450px" }} header="Confirmación" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                         <div className="flex align-items-center justify-content-center">
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
-                            {factura && (
+                            {provincia && (
                                 <span>
-                                    Está seguro de borrar la provincia <b>{factura.nombre}</b>?
+                                    Está seguro de borrar la provincia <b>{provincia.nombre}</b>?
                                 </span>
                             )}
                         </div>
@@ -366,7 +487,7 @@ const Crud = () => {
                     <Dialog visible={deleteProductsDialog} style={{ width: "450px" }} header="Confirm" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
                         <div className="flex align-items-center justify-content-center">
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
-                            {factura && <span>Está seguro de borrar estas provincias?</span>}
+                            {provincia && <span>Está seguro de borrar estas provincias?</span>}
                         </div>
                     </Dialog>
                 </div>
@@ -379,4 +500,4 @@ const comparisonFn = function (prevProps, nextProps) {
     return prevProps.location.pathname === nextProps.location.pathname;
 };
 
-export default React.memo(Crud, comparisonFn);
+export default React.memo(FacturaList, comparisonFn);
