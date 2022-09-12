@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import { EmpresaService } from "../service/EmpresaService";
+import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 
 const FormLayoutEmpresa = () => {
     let emptyEmpresa = {
@@ -39,6 +40,19 @@ const FormLayoutEmpresa = () => {
             </>
         );
     };
+
+    /*const itemTemplate = (data, layout) => {
+        if (!data) {
+            return;
+        }
+
+        if (layout === 'list') {
+            return dataviewListItem(data);
+        }
+        else if (layout === 'grid') {
+            return dataviewGridItem(data);
+        }
+    };*/
 
     return (
         <div className="grid">

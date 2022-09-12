@@ -14,7 +14,8 @@ import FormLayoutFactura from './components/FormLayoutFactura';
 import FacturaList from './pages/FacturaList';
 
 import Crud from './pages/Crud';
-import CrudCiudad from './pages/CrudCuidad'
+import CrudCiudad from './pages/CrudCuidad';
+import Cliente from './pages/Cliente';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
@@ -151,6 +152,7 @@ const App = () => {
             items: [
                 { label: 'Provincia', icon: 'pi pi-fw pi-user-edit', to: '/crud-provincia' },
                 { label: 'Ciudad', icon: 'pi pi-fw pi-user-edit', to: '/crud-ciudad' },
+                { label: 'Cliente', icon: 'pi pi-fw pi-user-edit', to: '/crud-cliente' },
             ]
         },
         {
@@ -217,6 +219,7 @@ const App = () => {
                     <Route path="/crud-empresa" component={FormLayoutEmpresa} />
                     <Route path="/crud-factura" component={FormLayoutFactura} />
                     <Route path="/lista-factura" component={FacturaList} />
+                    <Route path="/crud-cliente" component={Cliente} />
                 </div>
 
                 <AppFooter layoutColorMode={layoutColorMode} />
