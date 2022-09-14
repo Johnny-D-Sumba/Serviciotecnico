@@ -12,6 +12,7 @@ import Dashboard from './components/Dashboard';
 import FormLayoutEmpresa from './components/FormLayoutEmpresa';
 import FormLayoutFactura from './components/FormLayoutFactura';
 import FacturaList from './pages/FacturaList';
+import Tecnico from './pages/Tecnico';
 
 import Crud from './pages/Crud';
 import CrudCiudad from './pages/CrudCuidad';
@@ -150,9 +151,10 @@ const App = () => {
         {
             label: 'Pages', icon: 'pi pi-fw pi-clone',
             items: [
-                { label: 'Provincia', icon: 'pi pi-fw pi-user-edit', to: '/crud-provincia' },
-                { label: 'Ciudad', icon: 'pi pi-fw pi-user-edit', to: '/crud-ciudad' },
-                { label: 'Cliente', icon: 'pi pi-fw pi-user-edit', to: '/crud-cliente' },
+                { label: 'Provincia', icon: 'pi pi-fw pi-user-edit', to: '/provincia' },
+                { label: 'Ciudad', icon: 'pi pi-fw pi-user-edit', to: '/ciudad' },
+                { label: 'Cliente', icon: 'pi pi-fw pi-user-edit', to: '/cliente' },
+                { label: 'Técnico', icon: 'pi pi-fw pi-user-edit', to: '/tecnico'}
             ]
         },
         {
@@ -214,12 +216,13 @@ const App = () => {
             <div className="layout-main-container">
                 <div className="layout-main">
                     <Route path="/" exact render={() => <Dashboard colorMode={layoutColorMode} location={location} />} />
-                    <Route path="/crud-provincia" component={Crud} />
-                    <Route path="/crud-ciudad" component={CrudCiudad} />
+                    <Route path="/provincia" component={Crud} />
+                    <Route path="/ciudad" component={CrudCiudad} />
                     <Route path="/crud-empresa" component={FormLayoutEmpresa} />
                     <Route path="/crud-factura" component={FormLayoutFactura} />
                     <Route path="/lista-factura" component={FacturaList} />
-                    <Route path="/crud-cliente" component={Cliente} />
+                    <Route path="/cliente" component={Cliente} />
+                    <Route path="/tecnico" component={Tecnico} />
                 </div>
 
                 <AppFooter layoutColorMode={layoutColorMode} />

@@ -444,7 +444,7 @@ const FacturaList = () => {
                         className="datatable-responsive"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
                         globalFilter={globalFilter}
-                        emptyMessage="No existen provincias registradas."
+                        emptyMessage="No existen facturas registradas."
                         header={header}
                         responsiveLayout="scroll"
                     >
