@@ -17,6 +17,7 @@ import Tecnico from './pages/Tecnico';
 import Crud from './pages/Crud';
 import CrudCiudad from './pages/CrudCuidad';
 import Cliente from './pages/Cliente';
+import Producto from './pages/Producto';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
@@ -154,7 +155,8 @@ const App = () => {
                 { label: 'Provincia', icon: 'pi pi-fw pi-user-edit', to: '/provincia' },
                 { label: 'Ciudad', icon: 'pi pi-fw pi-user-edit', to: '/ciudad' },
                 { label: 'Cliente', icon: 'pi pi-fw pi-user-edit', to: '/cliente' },
-                { label: 'Técnico', icon: 'pi pi-fw pi-user-edit', to: '/tecnico'}
+                { label: 'Técnico', icon: 'pi pi-fw pi-user-edit', to: '/tecnico'},
+                { label: 'Producto', icon: 'pi pi-fw pi-user-edit', to: '/producto' }
             ]
         },
         {
@@ -223,6 +225,7 @@ const App = () => {
                     <Route path="/lista-factura" component={FacturaList} />
                     <Route path="/cliente" component={Cliente} />
                     <Route path="/tecnico" component={Tecnico} />
+                    <Route path="/producto" component={Producto} />
                 </div>
 
                 <AppFooter layoutColorMode={layoutColorMode} />
